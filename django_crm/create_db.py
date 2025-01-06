@@ -1,7 +1,17 @@
 import psycopg
+from dotenv import load_dotenv
+import os
+
+#load environment variables
+load_dotenv()
+
+db_host = os.getenv("DB_HOST")
+db_name = os.getenv("DB_NAME")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
 
 #connect to db
-database = psycopg.connect("host=localhost dbname=postgres user=postgres password=1")
+database = psycopg.connect(f"host={db_host} dbname={db_name} user={db_user} password={db_password}")
 
 #enable autocommit mode to create new db
 database.autocommit = True
