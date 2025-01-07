@@ -1,30 +1,25 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="">
-    {% if user.is_authenticated %}
->
-    <table class="table table-bordered table-hover">
-  <thead class="table-dark">
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Address</th>
-      <th scope="col">City</th>
-      <th scope="col">State</th>
-      <th scope="col">Zipcode</th>
-      <th scope="col">Created At</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% if records %}
-      {% for record in records %}
+  {% if user.is_authenticated %} >
+  <table class="table table-bordered border-dark table-hover">
+    <thead class="table-dark">
       <tr>
-        <td>{{record.id}}</td>
-        <td>{{record.first_name}}
-        {{record.last_name}}</td>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+        <th scope="col">City</th>
+        <th scope="col">State</th>
+        <th scope="col">Zipcode</th>
+        <th scope="col">Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if records %} {% for record in records %}
+      <tr>
+        <td onclick="location.href='{% url 'record' record.id %}'" role="button" class="table-dark">{{record.id}}</td>
+        <td>{{record.first_name}} {{record.last_name}}</td>
         <td>{{record.email}}</td>
         <td>{{record.phone}}</td>
         <td>{{record.address}}</td>
@@ -33,26 +28,25 @@
         <td>{{record.zipcode}}</td>
         <td>{{record.created_at}}</td>
       </tr>
-        {% endfor %}
-        {% endif %}
-      </tbody>
-</table>
-    {% else %}
-
+      {% endfor %} {% endif %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="col-md-6 offset-md-3">
     <h1 class="mb-5">Login</h1>
     <form method="post" action="{% url 'home' %}">
-        {% csrf_token %}
-        <form>
-  <div class="mb-4">
-    <input type="text" class="form-control" name="username" placeholder="Username" aria-describedby="emailHelp" required>
-  </div>
-  <div class="mb-4">
-    <input type="password" name="password" placeholder="Password" class="form-control" required>
-  </div>
-  <br/>
-  <button type="submit" class="btn btn-secondary">Log In</button>
-</form>
+      {% csrf_token %}
+      <form>
+        <div class="mb-4">
+          <input type="text" class="form-control" name="username" placeholder="Username" aria-describedby="emailHelp" required />
+        </div>
+        <div class="mb-4">
+          <input type="password" name="password" placeholder="Password" class="form-control" required />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-secondary">Log In</button>
+      </form>
     </form>
+  </div>
+  {% endif %} {% endblock %}
 </div>
-{% endif %}
-{% endblock %}
